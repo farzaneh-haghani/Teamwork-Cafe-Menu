@@ -1,18 +1,99 @@
-const menu = [
+[
   {
-    id: 1,
-    title: "Salad Bowl",
-    category: "Lunch",
-    price: 15.99,
-    img: "../public/images/image1_salad.jpg",
-    desc: `Freshest of fresh salad with your choice of vegetarian or meat topping. Just the perfect lunch item `
+    "id": 1,
+    "title": "Salad Bowl",
+    "category": "Lunch",
+    "price": 15.99,
+    "img": "../public/images/image1_salad.jpg",
+    "desc": "Freshest of fresh salad with your choice of vegetarian or meat topping. Just the perfect lunch item"
   },
   {
-    id: fdsf,
-    title: "fdsfsdfsd",
-    category: "lunch",
-    price: 13.99,
-    img: "./images/item-2.jpeg",
-    desc: `vaporware iPhone mumblecore selvage raw denim slow-carb leggings gochujang helvetica man braid jianbing. Marfa thundercats `
+    "id": 2,
+    "title": "CHOCOLATE, BANANA & ALMOND OVERNIGHT OATS",
+    "category": "Breakfast",
+    "price": 10.99,
+    "img": "",
+    "desc": "Chocolate overnight organic oats with almond milk, cocoa powder, banana puree & almond butter, topped with cacao nib" 
+  },
+  {
+    "id": 3,
+    "title": "CHEESE & HAM CROISSANT",
+    "category": "Breakfast",
+    "price": 12.99,
+    "img": "",
+    "desc": "Freshly baked croissant filled with cheese & ham."
+  },
+  {
+    "id": 4,
+    "title": "MANGO, RASPBERRY & ALMOND BUTTER YOGHURT POT",
+    "category": "Breakfast",
+    "price": 16.99,
+    "img": "",
+    "desc": "Greek style yoghurt with mango puree, almond butter, granola & fresh raspberries." 
+  },
+  {
+    "id": 5,
+    "title": "BEETROOT FALAFEL & FETA WRAP",
+    "category": "Lunch",
+    "price": 25.99,
+    "img": "",
+    "desc": "Beetroot falafel with British red cabbage ‘slaw, pea & mint houmous, Greek feta & spinach in a spinach tortilla"
+  },
+  {
+    "id": 6,
+    "title": "PESTO & PARMESAN PASTA",
+    "category": "lunch",
+    "price": 23.99,
+    "img": "",
+    "desc": "Our homemade pesto pasta topped with rocket, cherry tomatoes, a generous helping of parmesan & basil." 
+  },
+  {
+    "id": 7,
+    "title": "KOREAN BBQ NOODLE BOWL",
+    "category": "Lunch",
+    "price": 25.99,
+    "img": "",
+    "desc": "Korean BBQ chicken, sesame noodles, British red cabbage ‘slaw, edamame beans & grated carrot with a sweet & spicy gochujang sauce"
+  },
+  {
+    "id": 8,
+    "title": "BOMBAY BHAJI KHOBEZ",
+    "category": "lunch",
+    "price": 13.99,
+    "img": "",
+    "desc": "Our Bombay inspired chickpea bhaji mix, with vegan minted tzatziki, spicy tomato & caramelised onion chutney & baby leaf spinach." 
+  },
+  {
+    "id": 9,
+    "title": "CHICKEN SATAY NOODLE BOWL",
+    "category": "Dinner",
+    "price": 27.99,
+    "img": "",
+    "desc": "Sticky chilli chicken with sesame noodles, edamame beans, grated carrots, crispy onions, rocket, cos & spinach. Topped with salted peanuts & satay dressing."
+  },
+  {
+    "id": 10,
+    "title": "HARISSA ROASTED VEG MEZZE",
+    "category": "Dinner",
+    "price": 28.99,
+    "img": "",
+    "desc": "Roasted harissa butternut & cauliflower with chunky roasted peppers, lemon turmeric cous cous, houmous & tangy lemon vinaigrette" 
+  },
+  {
+    "id": 11,
+    "title": "MARVELLOUS MEZZE",
+    "category": "Dinner",
+    "price": 21.99,
+    "img": "",
+    "desc": "Chickpea falafel with our 6 grain mix, British red cabbage ‘slaw, grated carrot, cucumber, spring onions, coriander, cos & spinach. Topped with cherry tomatoes, houmous & vegan minted tzatziki."
+  },
+  {
+    "id": 12,
+    "title": "BRITISH RED CABBAGE & BEETROOT FALAFEL BOWL",
+    "category": "lunch",
+    "price": 16.99,
+    "img": "",
+    "desc": "British red cabbage ‘slaw, beetroot falafel, Greek feta, pecans, pea & mint houmous on our 5 grain mix" 
   }
+
 ]
