@@ -1,3 +1,5 @@
+import React from "react";
+
 const Categories = ({ categories, filterItems }) => {
   return (
     <section>
@@ -15,3 +17,5 @@ const Categories = ({ categories, filterItems }) => {
     </section>
   );
 };
+
+export default Categories;
