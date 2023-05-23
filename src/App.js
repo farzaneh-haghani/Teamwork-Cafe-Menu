@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import Category from './categories';
+import Menu from './Menu';
+import items from './data.json';
 import './App.css';
 
 function App() {
+
+  const allCategories = ["all", ...new Set(items.map((item) => item.category))];
+  const [menuItems, setMenuItems] = useState(items);
+
+  const filterItems = (category) => {
+    if (category === "all") {
+      setMenuItems(items);
+      return;
+    }
+    const newItems = items.filter((item) => item.category === category);
+    setMenuItems(newItems);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          tony is trying to work
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2><u>Our Menu</u></h2>
+      <Category categories={allCategories} filterItems={filterItems} />
+      <Menu items={menuItems} />
     </div>
   );
 }
