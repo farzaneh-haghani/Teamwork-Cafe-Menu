@@ -15,3 +15,6 @@ const Categories = ({ categories, filterItems }) => {
     </section>
   );
 };
+
+export default Categories;
+

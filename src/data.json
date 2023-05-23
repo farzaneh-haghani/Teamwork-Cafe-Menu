@@ -4,7 +4,7 @@
     "title": "Salad Bowl",
     "category": "Lunch",
     "price": 15.99,
-    "img": "../public/images/image1_salad.jpg",
+    "img": "images/image1_salad.jpg",
     "desc": "Freshest of fresh salad with your choice of vegetarian or meat topping. Just the perfect lunch item"
   },
   {
@@ -12,7 +12,7 @@
     "title": "CHOCOLATE, BANANA & ALMOND OVERNIGHT OATS",
     "category": "Breakfast",
     "price": 10.99,
-    "img": "",
+    "img": "images/image2_burger.jpg",
     "desc": "Chocolate overnight organic oats with almond milk, cocoa powder, banana puree & almond butter, topped with cacao nib" 
   },
   {
@@ -20,7 +20,7 @@
     "title": "CHEESE & HAM CROISSANT",
     "category": "Breakfast",
     "price": 12.99,
-    "img": "",
+    "img": "images/image3_shake.jpg",
     "desc": "Freshly baked croissant filled with cheese & ham."
   },
   {

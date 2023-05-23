@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Category from './categories';
+import Category from './Categories';
 import Menu from './Menu';
 import items from './data.json';
 import './App.css';
