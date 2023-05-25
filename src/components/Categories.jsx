@@ -19,3 +19,7 @@ const Categories = ({ categories, filterItems }) => {
 };
 
 export default Categories;
+<<<<<<< HEAD:src/Categories.jsx
+
+=======
+>>>>>>> development:src/components/Categories.jsx

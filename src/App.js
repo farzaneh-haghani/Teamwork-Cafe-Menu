@@ -1,11 +1,10 @@
-import { useState } from 'react';
-import Category from './components/Categories'
-import Menu from './components/Menu';
-import items from './data.json';
-import './App.css';
+import { useState } from "react";
+import Category from "./Categories";
+import Menu from "./Menu";
+import items from "./data.json";
+import "./App.css";
 
 function App() {
-
   const allCategories = ["all", ...new Set(items.map((item) => item.category))];
   const [menuItems, setMenuItems] = useState(items);
 
@@ -20,7 +19,9 @@ function App() {
 
   return (
     <div className="App">
-      <h2><u>Our Menu</u></h2>
+      <h2>
+        <u>Our Menu</u>
+      </h2>
       <Category categories={allCategories} filterItems={filterItems} />
       <Menu items={menuItems} />
     </div>
