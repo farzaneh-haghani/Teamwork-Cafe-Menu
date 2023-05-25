@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Category from "./components/Categories";
-import Menu from "./components/Menu";
+import Category from "./Categories";
+import Menu from "./Menu";
 import items from "./data.json";
 import "./App.css";
 
