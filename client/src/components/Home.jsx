@@ -1,12 +1,11 @@
-import React from 'react';
+import React from "react";
 import { useState } from "react";
 import Category from "./Categories";
 import Menu from "./Menu";
 import items from "../data.json";
 
-
 const Home = () => {
-    const allCategories = ["all", ...new Set(items.map((item) => item.category))];
+  const allCategories = ["all", ...new Set(items.map((item) => item.category))];
   const [menuItems, setMenuItems] = useState(items);
 
   const filterItems = (category) => {
@@ -25,8 +24,7 @@ const Home = () => {
       <Category categories={allCategories} filterItems={filterItems} />
       <Menu items={menuItems} />
     </div>
-   
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
