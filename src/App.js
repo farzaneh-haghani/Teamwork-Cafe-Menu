@@ -1,30 +1,22 @@
-import { useState } from "react";
-import Category from "./components/Categories";
-import Menu from "./components/Menu";
-import items from "./data.json";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "./App.css";
+import AdminMenu from "./components/AdminMenu";
+import Home from './components/Home';
+import Edit from './components/Edit';
 
 function App() {
-  const allCategories = ["all", ...new Set(items.map((item) => item.category))];
-  const [menuItems, setMenuItems] = useState(items);
-
-  const filterItems = (category) => {
-    if (category === "all") {
-      setMenuItems(items);
-      return;
-    }
-    const newItems = items.filter((item) => item.category === category);
-    setMenuItems(newItems);
-  };
-
   return (
-    <div className="App">
-      <h2>
-        <u>Our Menu</u>
-      </h2>
-      <Category categories={allCategories} filterItems={filterItems} />
-      <Menu items={menuItems} />
+  
+      <div>
+       <Router>
+          <Routes>
+          <Route path = '/' element={<Home/>} />
+          <Route path='/admin' element={<AdminMenu />} />
+          <Route path='/editForm' element={<Edit />} />
+        </Routes>
+      </Router>
     </div>
+  
   );
 }
 
