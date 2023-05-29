@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import AppContext from "./Context";
 
-function Edit({ itemsData }) {
+function Edit() {
   const { id } = useContext(AppContext);
 
   const [title, setTitle] = useState();
