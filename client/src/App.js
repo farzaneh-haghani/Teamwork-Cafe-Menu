@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<AdminMenu />} />
-          <Route path="/editForm" element={<Edit data={data} />} />
+          <Route path="/editForm" element={<Edit />} />
         </Routes>
       </Router>
     </AppContext.Provider>
