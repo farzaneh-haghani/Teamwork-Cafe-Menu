@@ -10,18 +10,22 @@ app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
 
 
-app.get("/", (req, res) => res.status(200).json({ data: data }));
+app.get("/home", function (request, response) {
+  response.status(200).json(menuData);
+});
 
 
 app.put("/editForm", (req, res) => {
   const id = parseInt(req.body.id);
   const newItem = req.body;
+  
   const itemIndex = menuData.findIndex((item) => item.id === id);
   if (itemIndex === -1) {
     res
       .status(400)
       .json({ success: "failure", message: "This id does not exist" });
   }
+  
   menuData.splice(itemIndex, 1, newItem);
   res.status(200).json({ success: true, item: newItem });
 });
@@ -34,7 +38,7 @@ app.post("/", (req, res) => {
 
 app.get("/menu/q", function (request, response) {
   const str = (request.query.str).toLowerCase();
-
+  
   const filteredMenuItems = menuData.filter((item) => {
     return (
       item.title.toLowerCase().includes(str) ||
@@ -53,5 +57,5 @@ app.get("/menu/q", function (request, response) {
 
 const port = process.env.PORT ?? 3005;
 app.listen(port, () =>
-  console.log(`Example app listening at http://localhost:3005`)
+  console.log("Your app is listening on port " + port)
 );

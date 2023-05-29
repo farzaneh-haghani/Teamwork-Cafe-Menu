@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import dataJson from "../data.json";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AppContext from "./Context";
 import SearchItem from "./SearcItem";
@@ -8,19 +7,27 @@ const AdminMenu = () => {
   const { menuData, setMenuData, setId } = useContext(AppContext);
   const [activeRow, setActiveRow] = useState(null);
 
-  const editHandler = (id) => {
-    setId(id);
-  };
 
-  function handleClick(rowId) {
-    setActiveRow(rowId === activeRow ? null : rowId);
-  }
+  useEffect(() => {
+    setMenuData(data)
+  }, [data]);
+
+
+    function handleClick(rowId) {
+        setActiveRow(rowId === activeRow ? null : rowId);
+      }
+
+
+      const editHandler = (id) => {
+        setId(id);
+      };
 
   return (
     <div>
       <SearchItem />
       <h4>Menu Items</h4>
-      <button onClick={() => setMenuData(dataJson)}>All</button>
+      <button onClick={() => setMenuData(data)}>All</button>
+
       <table>
         <thead>
           <tr>

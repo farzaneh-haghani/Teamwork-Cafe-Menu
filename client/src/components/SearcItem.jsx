@@ -16,6 +16,7 @@ function SearchItem() {
       })
       .then((data) => {
         setMenuData(data);
+        setKeyword("");
       })
       .catch((error) => {
         console.log(error);
