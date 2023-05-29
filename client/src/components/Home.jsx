@@ -16,6 +16,7 @@ const Home = () => {
     const newItems = items.filter((item) => item.category === category);
     setMenuItems(newItems);
   };
+ 
   return (
     <div className="App">
       <h2>
