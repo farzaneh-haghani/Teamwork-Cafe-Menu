@@ -1,6 +1,16 @@
+
+import React, { useState, useContext } from "react";
+import items from "../data.json";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import AppContext from "./Context";
 import SearchItem from "./SearcItem";
+
+const AdminMenu = () => {
+  const { setId } = useContext(AppContext);
+
+  const editHandler = (id) => {
+    setId(id);
+  };
 
 const AdminMenu = ({menuData, setMenuData, fetchedData}) => {
     let [activeRow, setActiveRow] = useState(null);
@@ -15,6 +25,7 @@ const AdminMenu = ({menuData, setMenuData, fetchedData}) => {
       <h4>Menu Items</h4>
       <button onClick={() => setMenuData(fetchedData)}>All</button>
       <table>
+ { id, title, desc, price, img } = menuItem;
         <thead>
           <tr>
             <th className="table-titles">Id</th>
@@ -43,7 +54,7 @@ const AdminMenu = ({menuData, setMenuData, fetchedData}) => {
                 <td>{menuItem.price}</td>
                 <td>{menuItem.img}</td>
                 <td>{menuItem.desc}</td>
-                <td><Link to ="/editForm"><button>Edit</button></Link></td>
+                <td><Link to ="/editForm"> <button onClick={() => editHandler(id)}>Edit</button></Link></td>
                 <td>
                   <button>Delete</button>
                 </td>
