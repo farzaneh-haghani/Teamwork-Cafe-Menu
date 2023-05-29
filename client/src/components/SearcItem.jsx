@@ -5,6 +5,7 @@ function SearchItem({setMenuData}) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setKeyword("");
       fetch(`http://localhost:3005/menu/q?str=${keyword}`)
         .then((response) => {
           if (!response.ok){

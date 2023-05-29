@@ -1,31 +1,34 @@
 
-import React, { useState, useContext } from "react";
-import items from "../data.json";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AppContext from "./Context";
 import SearchItem from "./SearcItem";
 
 const AdminMenu = () => {
-  const { setId } = useContext(AppContext);
+  const { data } = useContext(AppContext);
+  const [menuData, setMenuData] = useState(data);
 
-  const editHandler = (id) => {
-    setId(id);
-  };
+  useEffect(() => {
+    setMenuData(data)
+  }, [data]);
 
-const AdminMenu = ({menuData, setMenuData, fetchedData}) => {
+    const { setId } = useContext(AppContext);
     let [activeRow, setActiveRow] = useState(null);
 
     function handleClick(rowId) {
         setActiveRow(rowId === activeRow ? null : rowId);
       }
 
+      const editHandler = (id) => {
+        setId(id);
+      };
+
   return (
     <div>
       <SearchItem setMenuData={setMenuData}/>
       <h4>Menu Items</h4>
-      <button onClick={() => setMenuData(fetchedData)}>All</button>
+      <button onClick={() => setMenuData(data)}>All</button>
       <table>
- { id, title, desc, price, img } = menuItem;
         <thead>
           <tr>
             <th className="table-titles">Id</th>
@@ -40,7 +43,6 @@ const AdminMenu = ({menuData, setMenuData, fetchedData}) => {
         </thead>
         <tbody>
           {menuData?.map((menuItem) => {
-           console.log(menuItem.id);
             return (
               <tr key={menuItem.id}
                 onClick={() => handleClick(menuItem.id)}
@@ -54,7 +56,7 @@ const AdminMenu = ({menuData, setMenuData, fetchedData}) => {
                 <td>{menuItem.price}</td>
                 <td>{menuItem.img}</td>
                 <td>{menuItem.desc}</td>
-                <td><Link to ="/editForm"> <button onClick={() => editHandler(id)}>Edit</button></Link></td>
+                <td><Link to ="/editForm"> <button onClick={() => editHandler(menuItem.id)}>Edit</button></Link></td>
                 <td>
                   <button>Delete</button>
                 </td>
