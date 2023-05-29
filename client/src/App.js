@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [data, setData] = useState([]);
-  const [menuData, setMenuData] = useState([]);
   const [id, setId] = useState([]);
 
   useEffect(() => {
@@ -21,7 +20,6 @@ function App() {
       })
       .then((data) => {
         setData(data);
-        setMenuData(data);
       })
       .catch((error) => {
         console.log(error);
@@ -29,9 +27,7 @@ function App() {
   }, []);
 
   return (
-    <AppContext.Provider
-      value={{ data, setData, id, setId, menuData, setMenuData }}
-    >
+    <AppContext.Provider value={{ data, setData, id, setId }}>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
