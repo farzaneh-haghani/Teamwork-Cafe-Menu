@@ -58,8 +58,3 @@ const AdminMenu = ({menuData, setMenuData, fetchedData}) => {
 
 export default AdminMenu;
 
-
-
-
-                            
-  
