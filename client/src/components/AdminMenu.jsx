@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import items from "../data.json";
 import { Link } from "react-router-dom";
+import AppContext from "./Context";
+
 const AdminMenu = () => {
+  const { setId } = useContext(AppContext);
+
+  const editHandler = (id) => {
+    setId(id);
+  };
+
   return (
     <div className="section-center">
       <table>
@@ -22,7 +30,7 @@ const AdminMenu = () => {
               <td>{price}</td>
               <td>
                 <Link to="/editForm">
-                  <button>Edit</button>
+                  <button onClick={() => editHandler(id)}>Edit</button>
                 </Link>
               </td>
 
