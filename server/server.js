@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const menuData = require("./data.json");
+const data = require("./data.json");
 
 const app = express();
 
@@ -10,23 +10,23 @@ app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
 
 
-app.get("/home", function (request, response) {
-  response.status(200).json(menuData);
+app.get("/", function (request, response) {
+  response.status(200).json(data);
 });
 
 
 app.put("/editForm", (req, res) => {
   const id = parseInt(req.body.id);
   const newItem = req.body;
-  
-  const itemIndex = menuData.findIndex((item) => item.id === id);
+
+  const itemIndex = data.findIndex((item) => item.id === id);
   if (itemIndex === -1) {
     res
       .status(400)
       .json({ success: "failure", message: "This id does not exist" });
   }
-  
-  menuData.splice(itemIndex, 1, newItem);
+
+  data.splice(itemIndex, 1, newItem);
   res.status(200).json({ success: true, item: newItem });
 });
 
@@ -36,10 +36,10 @@ app.post("/", (req, res) => {
 });
 
 
-app.get("/menu/q", function (request, response) {
+app.get("/admin/q", function (request, response) {
   const str = (request.query.str).toLowerCase();
-  
-  const filteredMenuItems = menuData.filter((item) => {
+
+  const filteredMenuItems = data.filter((item) => {
     return (
       item.title.toLowerCase().includes(str) ||
       item.category.toLowerCase().includes(str) ||

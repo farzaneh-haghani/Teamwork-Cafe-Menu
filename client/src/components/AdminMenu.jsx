@@ -1,32 +1,30 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AppContext from "./Context";
-import SearchItem from "./SearcItem";
+import SearchItem from "./SearchItem";
 
 const AdminMenu = () => {
-  const { menuData, setMenuData, setId } = useContext(AppContext);
+  const { data, setId } = useContext(AppContext);
   const [activeRow, setActiveRow] = useState(null);
-
+  const [adminData, setAdminData] = useState(data);
 
   useEffect(() => {
-    setMenuData(data)
+    setAdminData(data);
   }, [data]);
 
+  function handleClick(rowId) {
+    setActiveRow(rowId === activeRow ? null : rowId);
+  }
 
-    function handleClick(rowId) {
-        setActiveRow(rowId === activeRow ? null : rowId);
-      }
-
-
-      const editHandler = (id) => {
-        setId(id);
-      };
+  const editHandler = (id) => {
+    setId(id);
+  };
 
   return (
     <div>
-      <SearchItem />
+      <SearchItem setAdminData={setAdminData} />
       <h4>Menu Items</h4>
-      <button onClick={() => setMenuData(data)}>All</button>
+      <button onClick={() => setAdminData(data)}>All</button>
 
       <table>
         <thead>
@@ -43,7 +41,7 @@ const AdminMenu = () => {
         </thead>
 
         <tbody>
-          {menuData?.map((menuItem) => {
+          {adminData?.map((menuItem) => {
             const { id, title, category, desc, price, img } = menuItem;
             return (
               <tr

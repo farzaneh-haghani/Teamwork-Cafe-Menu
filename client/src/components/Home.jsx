@@ -6,20 +6,19 @@ import AppContext from "./Context";
 
 const Home = () => {
   const { data } = useContext(AppContext);
-  const allCategories = ["all", ...new Set(data.map((item) => item.category))];
+
   const [menuItems, setMenuItems] = useState(data);
+  const allCategories = ["all", ...new Set(data.map((item) => item.category))];
 
   useEffect(() => {
-    setMenuItems(data)
+    setMenuItems(data);
   }, [data]);
 
   const filterItems = (category) => {
-    console.log(category);
     if (category === "all") {
       setMenuItems(data);
       return;
     }
-
     const newItems = data.filter((item) => item.category === category);
     setMenuItems(newItems);
   };
@@ -30,7 +29,7 @@ const Home = () => {
         <u>Our Menu</u>
       </h2>
       <Category categories={allCategories} filterItems={filterItems} />
-     <Menu items={menuItems} />
+      <Menu items={menuItems} />
     </div>
   );
 };
