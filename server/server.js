@@ -10,11 +10,13 @@ app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
 
 
+//--------------------GET ALL--------------------------
 app.get("/", function (request, response) {
   response.status(200).json(data);
 });
 
 
+//--------------------EDIT------------------------------
 app.put("/editForm", (req, res) => {
   const id = parseInt(req.body.id);
   const newItem = req.body;
@@ -23,7 +25,10 @@ app.put("/editForm", (req, res) => {
   if (itemIndex === -1) {
     res
       .status(400)
-      .json({ success: "failure", message: "This id does not exist" });
+      .json({
+        success: "failure",
+        message: "This id does not exist"
+      });
   }
 
   data.splice(itemIndex, 1, newItem);
@@ -31,11 +36,13 @@ app.put("/editForm", (req, res) => {
 });
 
 
+//--------------------ADD------------------------------
 app.post("/", (req, res) => {
   res.json({ success: true });
 });
 
 
+//--------------------GET ONE---------------------------
 app.get("/admin/q", function (request, response) {
   const str = (request.query.str).toLowerCase();
 
@@ -55,6 +62,23 @@ app.get("/admin/q", function (request, response) {
 });
 
 
+//--------------------DELETE---------------------------
+app.delete("/admin/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const itemIndex = data.findIndex(item => item.id === id);
+  if (itemIndex === -1) {
+    res.status(400).json({
+      success: "failure",
+      message: "This id does not exist"
+    })
+  } else {
+    data.splice(itemIndex, 1);
+    res.status(200).json(data);
+  }
+});
+
+
+//--------------------PORT---------------------------
 const port = process.env.PORT ?? 3005;
 app.listen(port, () =>
   console.log("Your app is listening on port " + port)

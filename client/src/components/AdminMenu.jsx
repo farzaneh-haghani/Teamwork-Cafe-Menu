@@ -16,6 +16,18 @@ const AdminMenu = () => {
     setActiveRow(rowId === activeRow ? null : rowId);
   }
 
+  const deleteHandler = async (id) => {
+    const response = await fetch(`http://localhost:3005/admin/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    setAdminData(data);
+    alert("Your item deleted");
+  };
+
   const editHandler = (id) => {
     setId(id);
   };
@@ -64,7 +76,7 @@ const AdminMenu = () => {
                   </Link>
                 </td>
                 <td>
-                  <button>Delete</button>
+                  <button onClick={() => deleteHandler(id)}>Delete</button>
                 </td>
               </tr>
             );
