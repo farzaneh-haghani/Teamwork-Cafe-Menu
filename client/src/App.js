@@ -7,11 +7,11 @@ import { useEffect, useState } from "react";
 
 
 function App() {
-  const [menuData, setMenuData] = useState([]);
+  const [data, setData] = useState([]);
   const [id, setId] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3005/home`)
+    fetch(`http://localhost:3005/`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Something went wrong.");
@@ -27,7 +27,7 @@ function App() {
   }, []);
 
   return (
-    <AppContext.Provider value={{ menuData, setMenuData, id, setId }}>
+    <AppContext.Provider value={{ data, setData, id, setId }}>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
