@@ -2,23 +2,22 @@ import React, { useState } from "react";
 // import AppContext from "./Context";
 
 function Add() {
-  const { id ,setId} = useState();
+  const { id, setId } = useState();
 
   const [title, setTitle] = useState();
-  const [desc, setDesc] = useState();
+  const [descript, setDescript] = useState();
   const [category, setCategory] = useState();
   const [price, setPrice] = useState();
   const [img, setImg] = useState();
 
   const addItem = async (e) => {
-    
     e.preventDefault();
     const res = await fetch("http://localhost:3005/AddForm", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id, title, desc, category, price, img })
+      body: JSON.stringify({ id, title, descript, category, price, img }),
     });
     const data = await res.json();
     console.log({ data });
@@ -27,11 +26,9 @@ function Add() {
   return (
     <div>
       <h4>Add Item</h4>
-    
+
       <label for="id"> id</label>
-      <input id="id" 
-      placeholder="Id" 
-      onChange={(e) => setId(e.target.value)}/>
+      <input id="id" placeholder="Id" onChange={(e) => setId(e.target.value)} />
       <br />
       <label for="title"> Title</label>
       <input
@@ -63,10 +60,10 @@ function Add() {
       <br />
       <textarea
         placeholder="Description"
-        onChange={(e) => setDesc(e.target.value)}
+        onChange={(e) => setDescript(e.target.value)}
       ></textarea>
       <br />
-      
+
       <button onClick={addItem}>Submit</button>
     </div>
   );

@@ -1,18 +1,28 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const data = require("./data.json");
+const dotenv = require("dotenv");
+const { Pool } = require("pg");
+
 
 const app = express();
+dotenv.config();
 
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
 
 
-//--------------------GET ALL--------------------------
+const db = new Pool({
+  connectionString: process.env.DB_URL,
+  ssl: { rejectUnauthorized: false }
+})
+
+db.connect();
+
+// --------------------GET ALL--------------------------
 app.get("/", function (request, response) {
-  response.status(200).json(data);
+  // response.status(200).json(data);
 });
 
 
@@ -47,9 +57,9 @@ app.post("/addForm", (req, res) => {
       .json({ success: "failure", message: "This id already exists" });
   }
   menuData.push(addedItem);
-  res.json(200).json({ success: true,item:addedItem });
+  res.json(200).json({ success: true, item: addedItem });
+});
 
-  
 //--------------------ADD------------------------------
 app.post("/", (req, res) => {
   res.json({ success: true });
