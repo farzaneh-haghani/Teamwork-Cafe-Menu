@@ -1,13 +1,12 @@
 import { useState, useContext } from "react";
 import AppContext from "./Context";
 
-function SearchItem() {
-  const { setMenuData } = useContext(AppContext);
+function SearchItem({ setAdminData }) {
   const [keyword, setKeyword] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
-    fetch(`http://localhost:3005/menu/q?str=${keyword}`)
+    fetch(`http://localhost:3005/admin/q?str=${keyword}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("No items match.");
@@ -15,7 +14,8 @@ function SearchItem() {
         return response.json();
       })
       .then((data) => {
-        setMenuData(data);
+        setAdminData(data);
+        setKeyword("");
       })
       .catch((error) => {
         console.log(error);

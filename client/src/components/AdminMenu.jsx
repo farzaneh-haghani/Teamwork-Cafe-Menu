@@ -1,26 +1,43 @@
-import React, { useState, useContext } from "react";
-import dataJson from "../data.json";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AppContext from "./Context";
-import SearchItem from "./SearcItem";
+import SearchItem from "./SearchItem";
 
 const AdminMenu = () => {
-  const { menuData, setMenuData, setId } = useContext(AppContext);
+  const { data, setId } = useContext(AppContext);
   const [activeRow, setActiveRow] = useState(null);
+  const [adminData, setAdminData] = useState(data);
 
-  const editHandler = (id) => {
-    setId(id);
-  };
+  useEffect(() => {
+    setAdminData(data);
+  }, [data]);
 
   function handleClick(rowId) {
     setActiveRow(rowId === activeRow ? null : rowId);
   }
 
+  const deleteHandler = async (id) => {
+    const response = await fetch(`http://localhost:3005/admin/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    setAdminData(data);
+    alert("Your item deleted");
+  };
+
+  const editHandler = (id) => {
+    setId(id);
+  };
+
   return (
     <div>
-      <SearchItem />
+      <SearchItem setAdminData={setAdminData} />
       <h4>Menu Items</h4>
-      <button onClick={() => setMenuData(dataJson)}>All</button>
+      <button onClick={() => setAdminData(data)}>All</button>
+
       <table>
         <thead>
           <tr>
@@ -36,7 +53,7 @@ const AdminMenu = () => {
         </thead>
 
         <tbody>
-          {menuData?.map((menuItem) => {
+          {adminData?.map((menuItem) => {
             const { id, title, category, desc, price, img } = menuItem;
             return (
               <tr
@@ -59,7 +76,7 @@ const AdminMenu = () => {
                   </Link>
                 </td>
                 <td>
-                  <button>Delete</button>
+                  <button onClick={() => deleteHandler(id)}>Delete</button>
                 </td>
               </tr>
             );
