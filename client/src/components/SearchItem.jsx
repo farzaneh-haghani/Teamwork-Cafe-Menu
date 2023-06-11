@@ -1,5 +1,4 @@
-import { useState, useContext } from "react";
-import AppContext from "./Context";
+import { useState } from "react";
 
 function SearchItem({ setAdminData }) {
   const [keyword, setKeyword] = useState("");

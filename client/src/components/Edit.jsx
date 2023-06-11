@@ -5,7 +5,7 @@ function Edit() {
   const { id } = useContext(AppContext);
 
   const [title, setTitle] = useState();
-  const [desc, setDesc] = useState();
+  const [descript, setDescript] = useState();
   const [category, setCategory] = useState();
   const [price, setPrice] = useState();
   const [img, setImg] = useState();
@@ -17,19 +17,11 @@ function Edit() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id, title, desc, category, price, img }),
+      body: JSON.stringify({ id, title, descript, category, price, img }),
     });
     const data = await res.json();
     console.log({ data });
   };
-
-  // Populate Post
-  //////////////////////////////////////////
-  //  const populatePost = (key, title, content) => {
-  //   setUpdateID(key);
-  //   setUpdateTitle(title);
-  //   setUpdateContent(content);
-  // }
 
   return (
     <div>
@@ -64,7 +56,7 @@ function Edit() {
       <br />
       <textarea
         placeholder="Description"
-        onChange={(e) => setDesc(e.target.value)}
+        onChange={(e) => setDescript(e.target.value)}
       ></textarea>
       <br />
       <button onClick={editItem}>Submit Change</button>
