@@ -54,7 +54,7 @@ const AdminMenu = () => {
 
         <tbody>
           {adminData?.map((menuItem) => {
-            const { id, title, category, desc, price, img } = menuItem;
+            const { id, title, category, descript, price, img } = menuItem;
             return (
               <tr
                 key={id}
@@ -69,7 +69,7 @@ const AdminMenu = () => {
                 <td>{category}</td>
                 <td>{price}</td>
                 <td>{img}</td>
-                <td>{desc}</td>
+                <td>{descript}</td>
                 <td>
                   <Link to="/editForm">
                     <button onClick={() => editHandler(id)}>Edit</button>
