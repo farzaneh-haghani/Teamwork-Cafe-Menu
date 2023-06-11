@@ -36,6 +36,20 @@ app.put("/editForm", (req, res) => {
 });
 
 
+
+app.post("/addForm", (req, res) => {
+  const id = parseInt(req.body.id);
+  const addedItem = req.body;
+  const itemIndex = menuData.findIndex((item) => item.id === id);
+  if (itemIndex === 1) {
+    res
+      .status(400)
+      .json({ success: "failure", message: "This id already exists" });
+  }
+  menuData.push(addedItem);
+  res.json(200).json({ success: true,item:addedItem });
+
+  
 //--------------------ADD------------------------------
 app.post("/", (req, res) => {
   res.json({ success: true });
