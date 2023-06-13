@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const { Pool } = require("pg");
 
-
 const app = express();
 dotenv.config();
 
@@ -12,19 +11,45 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
 
-
 const db = new Pool({
   connectionString: process.env.DB_URL,
-  ssl: { rejectUnauthorized: false }
-})
+  ssl: { rejectUnauthorized: false },
+});
 
 db.connect();
 
-// --------------------GET ALL--------------------------
+// // --------------------GET ALL--------------------------
 app.get("/", function (request, response) {
-  // response.status(200).json(data);
+  db.query("SELECT * FROM menu ", (err, result) => {
+    if (err) {
+      response.status(500).json({ success: false });
+    } else {
+      console.log(result.rows);
+      response.status(200).json(result.rows);
+    }
+  });
 });
 
+// --------------------GET ONE---------------------------
+app.get("/admin/q", function (request, response) {
+  const str = request.query.str.toLowerCase();
+
+  db.query(
+    "SELECT * FROM menu WHERE LOWER(title) LIKE '%' || $1 || '%' OR LOWER(descript) LIKE '%' || $1 || '%'",
+    [str],
+    (err, result) => {
+      if (err) {
+        response.status(500).json({ success: false });
+      } else {
+        if (result.rows.length > 0) {
+          response.status(200).json(result.rows);
+        } else {
+          response.status(404).json({ message: "No items match." });
+        }
+      }
+    }
+  );
+});
 
 //--------------------EDIT------------------------------
 app.put("/editForm", (req, res) => {
@@ -33,19 +58,15 @@ app.put("/editForm", (req, res) => {
 
   const itemIndex = data.findIndex((item) => item.id === id);
   if (itemIndex === -1) {
-    res
-      .status(400)
-      .json({
-        success: "failure",
-        message: "This id does not exist"
-      });
+    res.status(400).json({
+      success: "failure",
+      message: "This id does not exist",
+    });
   }
 
   data.splice(itemIndex, 1, newItem);
   res.status(200).json({ success: true, item: newItem });
 });
-
-
 
 app.post("/addForm", (req, res) => {
   const id = parseInt(req.body.id);
@@ -65,10 +86,15 @@ app.post("/", (req, res) => {
   res.json({ success: true });
 });
 
-
 //--------------------GET ONE---------------------------
 app.get("/admin/q", function (request, response) {
-  const str = (request.query.str).toLowerCase();
+  const str = request.query.str.toLowerCase();
+
+  db.query(
+    "SELECT * FROM menu WHERE LOWER(name) LIKE $1 OR LOWER (title) LIKE $1 OR LOWER (category) LIKE $1 OR LOWER(desc) LIKE $1",
+    [str],
+    (err, result) => {}
+  );
 
   const filteredMenuItems = data.filter((item) => {
     return (
@@ -85,25 +111,21 @@ app.get("/admin/q", function (request, response) {
   }
 });
 
-
 //--------------------DELETE---------------------------
 app.delete("/admin/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  const itemIndex = data.findIndex(item => item.id === id);
+  const itemIndex = data.findIndex((item) => item.id === id);
   if (itemIndex === -1) {
     res.status(400).json({
       success: "failure",
-      message: "This id does not exist"
-    })
+      message: "This id does not exist",
+    });
   } else {
     data.splice(itemIndex, 1);
     res.status(200).json(data);
   }
 });
 
-
 //--------------------PORT---------------------------
 const port = process.env.PORT ?? 3005;
-app.listen(port, () =>
-  console.log("Your app is listening on port " + port)
-);
+app.listen(port, () => console.log("Your app is listening on port " + port));
