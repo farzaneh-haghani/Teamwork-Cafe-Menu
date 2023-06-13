@@ -18,9 +18,9 @@ const db = new Pool({
 
 db.connect();
 
-// --------------------GET ALL--------------------------
+// // --------------------GET ALL--------------------------
 app.get("/", function (request, response) {
-  db.query("SELECT * FROM menu", (err, result) => {
+  db.query("SELECT * FROM menu ", (err, result) => {
     if (err) {
       response.status(500).json({ success: false });
     } else {
@@ -28,6 +28,27 @@ app.get("/", function (request, response) {
       response.status(200).json(result.rows);
     }
   });
+});
+
+// --------------------GET ONE---------------------------
+app.get("/admin/q", function (request, response) {
+  const str = request.query.str.toLowerCase();
+
+  db.query(
+    "SELECT * FROM menu WHERE LOWER(title) LIKE '%' || $1 || '%' OR LOWER(descript) LIKE '%' || $1 || '%'",
+    [str],
+    (err, result) => {
+      if (err) {
+        response.status(500).json({ success: false });
+      } else {
+        if (result.rows.length > 0) {
+          response.status(200).json(result.rows);
+        } else {
+          response.status(404).json({ message: "No items match." });
+        }
+      }
+    }
+  );
 });
 
 //--------------------EDIT------------------------------
@@ -68,6 +89,12 @@ app.post("/", (req, res) => {
 //--------------------GET ONE---------------------------
 app.get("/admin/q", function (request, response) {
   const str = request.query.str.toLowerCase();
+
+  db.query(
+    "SELECT * FROM menu WHERE LOWER(name) LIKE $1 OR LOWER (title) LIKE $1 OR LOWER (category) LIKE $1 OR LOWER(desc) LIKE $1",
+    [str],
+    (err, result) => {}
+  );
 
   const filteredMenuItems = data.filter((item) => {
     return (
