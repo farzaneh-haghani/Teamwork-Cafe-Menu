@@ -86,45 +86,32 @@ app.post("/", (req, res) => {
   res.json({ success: true });
 });
 
-//--------------------GET ONE---------------------------
-app.get("/admin/q", function (request, response) {
-  const str = request.query.str.toLowerCase();
-
-  db.query(
-    "SELECT * FROM menu WHERE LOWER(name) LIKE $1 OR LOWER (title) LIKE $1 OR LOWER (category) LIKE $1 OR LOWER(desc) LIKE $1",
-    [str],
-    (err, result) => {}
-  );
-
-  const filteredMenuItems = data.filter((item) => {
-    return (
-      item.title.toLowerCase().includes(str) ||
-      item.category.toLowerCase().includes(str) ||
-      item.desc.toLowerCase().includes(str)
-    );
-  });
-
-  if (filteredMenuItems.length > 0) {
-    response.status(200).json(filteredMenuItems);
-  } else {
-    response.status(404).json({ message: "No items match." });
-  }
-});
-
 //--------------------DELETE---------------------------
 app.delete("/admin/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  const itemIndex = data.findIndex((item) => item.id === id);
-  if (itemIndex === -1) {
+  if (isNaN(id)) {
     res.status(400).json({
       success: "failure",
-      message: "This id does not exist",
-    });
-  } else {
-    data.splice(itemIndex, 1);
-    res.status(200).json(data);
+      message: "This id does not exist"
+    })
+  }
+  else {
+    db.query("DELETE FROM menu WHERE id = $1 ", [id])
+      .then((result) => {
+        if (result.rowCount === 0) {
+          res.status(400).json({
+            success: "failure",
+            message: "This id does not exist"
+          })
+        }
+        else {
+          res.status(200).json({ success: true });
+        }
+      })
+      .catch((err) => console.error(err));
   }
 });
+
 
 //--------------------PORT---------------------------
 const port = process.env.PORT ?? 3005;

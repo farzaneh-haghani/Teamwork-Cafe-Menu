@@ -4,13 +4,14 @@ import AppContext from "./Context";
 import SearchItem from "./SearchItem";
 
 const AdminMenu = () => {
-  const { data, setId } = useContext(AppContext);
+  const { data, setData, setId } = useContext(AppContext);
   const [activeRow, setActiveRow] = useState(null);
   const [adminData, setAdminData] = useState(data);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   useEffect(() => {
     setAdminData(data);
-  }, [data]);
+  }, [data, isDeleted]);
 
   function handleClick(rowId) {
     setActiveRow(rowId === activeRow ? null : rowId);
@@ -23,8 +24,13 @@ const AdminMenu = () => {
         "Content-Type": "application/json",
       },
     });
-    const data = await response.json();
-    setAdminData(data);
+    const result = await response.json();
+
+    if (response.ok) {
+      const itemIndex = data.findIndex((item) => item.id === id);
+      data.splice(itemIndex, 1);
+      setIsDeleted(!isDeleted);
+    }
     alert("Your item deleted");
   };
 

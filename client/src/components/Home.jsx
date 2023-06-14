@@ -8,14 +8,14 @@ const Home = () => {
   const { data } = useContext(AppContext);
 
   const [menuItems, setMenuItems] = useState(data);
-  const allCategories = ["all", ...new Set(data.map((item) => item.category))];
+  const allCategories = ["All", ...new Set(data.map((item) => item.category))];
 
   useEffect(() => {
     setMenuItems(data);
   }, [data]);
 
   const filterItems = (category) => {
-    if (category === "all") {
+    if (category === "All") {
       setMenuItems(data);
       return;
     }
@@ -24,9 +24,9 @@ const Home = () => {
   };
 
   return (
-    <div className="App">
-      <h2>
-        <u>Our Menu</u>
+    <div class="bg-gray-100 dark:bg-gray-900 py-10 px-12 text-center">
+      <h2 class="mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-gray-800 dark:text-gray-300">
+        CYF Cafe Menu
       </h2>
       <Category categories={allCategories} filterItems={filterItems} />
       <Menu items={menuItems} />
