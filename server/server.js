@@ -51,21 +51,56 @@ app.get("/admin/q", function (request, response) {
   );
 });
 
-//--------------------EDIT------------------------------
-app.put("/editForm", (req, res) => {
-  const id = parseInt(req.body.id);
+//--------------------GET EDIT------------------------------
+app.get("/admin/meals/:id/edit", async (req, res) => {
+  const id = parseInt(req.params.id);
+  try {
+    const { rows } = await db.query("SELECT * FROM menu WHERE id = $1", [id]);
+
+    if (rows.length === 0) {
+      res.status(404).json({ message: "Item not found" });
+    } else {
+      const item = rows[0];
+      res.status(200).json(item);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error.message);
+  }
+});
+
+//--------------------PUT EDIT------------------------------
+app.put("/admin/meals/:id/edit", (req, res) => {
+  const id = parseInt(req.params.id);
   const newItem = req.body;
 
-  const itemIndex = data.findIndex((item) => item.id === id);
-  if (itemIndex === -1) {
-    res.status(400).json({
-      success: "failure",
-      message: "This id does not exist",
-    });
-  }
+  db.query(
+    "UPDATE menu SET title = $1, descript = $2, category = $3, price = $4, img = $5 WHERE id = $6 RETURNING *",
+    [
+      newItem.title,
+      newItem.descript,
+      newItem.category,
+      newItem.price,
+      newItem.img,
+      id,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ success: false, error: err });
+      }
 
-  data.splice(itemIndex, 1, newItem);
-  res.status(200).json({ success: true, item: newItem });
+      if (result.rowCount === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "No items found with the provided ID.",
+        });
+      }
+
+      const updatedItem = result.rows[0];
+      return res.status(200).json({ success: true, item: updatedItem });
+    }
+  );
 });
 
 app.post("/addForm", (req, res) => {
@@ -84,31 +119,6 @@ app.post("/addForm", (req, res) => {
 //--------------------ADD------------------------------
 app.post("/", (req, res) => {
   res.json({ success: true });
-});
-
-//--------------------GET ONE---------------------------
-app.get("/admin/q", function (request, response) {
-  const str = request.query.str.toLowerCase();
-
-  db.query(
-    "SELECT * FROM menu WHERE LOWER(name) LIKE $1 OR LOWER (title) LIKE $1 OR LOWER (category) LIKE $1 OR LOWER(desc) LIKE $1",
-    [str],
-    (err, result) => {}
-  );
-
-  const filteredMenuItems = data.filter((item) => {
-    return (
-      item.title.toLowerCase().includes(str) ||
-      item.category.toLowerCase().includes(str) ||
-      item.desc.toLowerCase().includes(str)
-    );
-  });
-
-  if (filteredMenuItems.length > 0) {
-    response.status(200).json(filteredMenuItems);
-  } else {
-    response.status(404).json({ message: "No items match." });
-  }
 });
 
 //--------------------DELETE---------------------------
