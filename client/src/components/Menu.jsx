@@ -14,12 +14,12 @@ const Menu = ({ items }) => {
             <img
               src={img}
               alt={title}
-              class="rounded-t h-72 w-full object-cover"
+              class="rounded-t h-72 w-full object-fill"
             />
             <div class="p-8 text-left">
               <header class="text-lg mb-4 font-bold leading-relaxed text-gray-800 dark:text-gray-300">
                 <h4 class="mt-3 font-semibold text-lg">{title}</h4>
-                <h4>£{Math.floor(price) * 10}</h4>
+                <h4>£{price}</h4>
               </header>
               <p class="leading-5 text-gray-500 dark:text-gray-400">
                 {descript}

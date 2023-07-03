@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AdminMenu from "./components/AdminMenu";
-import Home from "./components/Home";
-import Edit from "./components/Edit";
-import Add from "./components/Add";
+import AdminMenu from "./pages/AdminMenu";
+import Home from "./pages/Home";
+import Form from "./pages/Form";
 import AppContext from "./components/Context";
 import { useEffect, useState } from "react";
 
 
 function App() {
   const [data, setData] = useState([]);
-  const [id, setId] = useState([]);
+  const [id, setId] = useState(0);
+  const [adminData, setAdminData] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:3005/`)
@@ -21,6 +21,7 @@ function App() {
       })
       .then((data) => {
         setData(data);
+        setAdminData(data);
       })
       .catch((error) => {
         console.log(error);
@@ -28,13 +29,12 @@ function App() {
   }, []);
 
   return (
-    <AppContext.Provider value={{ data, setData, id, setId }}>
+    <AppContext.Provider value={{ data, setData, id, setId, adminData, setAdminData }}>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<AdminMenu />} />
-          <Route path="/editForm" element={<Edit />} />
-          <Route path="/addForm" element={<Add />} />
+          <Route path="/admin/form" element={<Form />} />
 
         </Routes>
       </Router>

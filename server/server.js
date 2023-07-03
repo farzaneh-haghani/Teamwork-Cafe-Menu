@@ -18,13 +18,12 @@ const db = new Pool({
 
 db.connect();
 
-// // --------------------GET ALL--------------------------
+// --------------------GET ALL--------------------------
 app.get("/", function (request, response) {
   db.query("SELECT * FROM menu ", (err, result) => {
     if (err) {
       response.status(500).json({ success: false });
     } else {
-      console.log(result.rows);
       response.status(200).json(result.rows);
     }
   });
@@ -103,22 +102,18 @@ app.put("/admin/meals/:id/edit", (req, res) => {
   );
 });
 
-app.post("/addForm", (req, res) => {
-  const id = parseInt(req.body.id);
-  const addedItem = req.body;
-  const itemIndex = menuData.findIndex((item) => item.id === id);
-  if (itemIndex === 1) {
-    res
-      .status(400)
-      .json({ success: "failure", message: "This id already exists" });
-  }
-  menuData.push(addedItem);
-  res.json(200).json({ success: true, item: addedItem });
-});
-
 //--------------------ADD------------------------------
-app.post("/", (req, res) => {
-  res.json({ success: true });
+app.post("/admin/add", (req, res) => {
+  const { title, category, price, img, descript } = req.body;
+  const insertQuery = "INSERT INTO menu (title,category,price,img,descript) VALUES ($1,$2,$3,$4,$5) RETURNING *";
+  const values = [title, category, price, img, descript];
+
+  db.query(insertQuery, values)
+    .then((result) => {
+      const newItem = result.rows[0];
+      res.status(200).json({ success: true, item: newItem });
+    })
+    .catch((err) => res.status(500).json({ success: false, error: err }))
 });
 
 //--------------------DELETE---------------------------
