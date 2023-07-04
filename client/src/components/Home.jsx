@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     <div class="bg-gray-100 dark:bg-gray-900 py-10 px-12 text-center">
-      <h2 class="mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-gray-800 dark:text-gray-300">
+      <h2 class="mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-gray-800 dark:text-gray-300  hover:text-brightRedLight">
         CYF Cafe Menu
       </h2>
       <Category categories={allCategories} filterItems={filterItems} />
