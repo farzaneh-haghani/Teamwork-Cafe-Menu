@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useState, useContext } from "react";
-import Category from "./Categories";
-import Menu from "./Menu";
-import AppContext from "./Context";
+import Category from "../components/Categories";
+import Menu from "../components/Menu";
+import AppContext from "../components/Context";
 
 const Home = () => {
   const { data } = useContext(AppContext);

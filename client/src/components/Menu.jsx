@@ -1,5 +1,4 @@
 import React from "react";
-import "../App.css";
 
 const Menu = ({ items }) => {
   return (
@@ -9,19 +8,17 @@ const Menu = ({ items }) => {
         return (
           <article
             key={id}
-            class="my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1 cursor-pointer"
+            class="my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1 cursor-pointer  hover:text-brightRedLight"
           >
             <img
               src={img}
               alt={title}
-              class="rounded-t h-72 w-full object-cover"
+              class="rounded-t h-72 w-full object-fill"
             />
             <div class="p-8 text-left">
-              <header class="text-lg mb-4 font-bold leading-relaxed hover:text-veryDarkBlue">
-                <h4 class="mt-3 font-semibold text-lg hover:text-brightRed">
-                  {title}
-                </h4>
-                <h4>£{Math.floor(price) * 10}</h4>
+              <header class="text-lg mb-4 font-bold leading-relaxed">
+                <h4 class="mt-3 font-semibold text-lg">{title}</h4>
+                <h4>£{price}</h4>
               </header>
               <p class="leading-5 text-gray-500 dark:text-gray-400">
                 {descript}
