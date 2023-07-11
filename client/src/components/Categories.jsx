@@ -7,7 +7,7 @@ const Categories = ({ categories, filterItems }) => {
         {categories.sort().map((category, index) => {
           return (
             <li
-              class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 mr-2 cursor-pointer"
+              class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-brightRedLight hover:border-gray-300 dark:hover:text-brightRedLight mr-2 cursor-pointer"
               type="button"
               key={index}
               onClick={() => filterItems(category)}

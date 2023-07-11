@@ -42,58 +42,97 @@ const AdminMenu = () => {
       <div>
         <SearchItem setAdminData={setAdminData} />
         <button onClick={() => setAdminData(data)}>All</button>
-      </div>
-      <div>
-        <Link to="/admin/form">
-          <button>ADD ITEM</button>
-        </Link>
-        <table>
-          <thead>
-            <tr>
-              <th className="table-titles">Id</th>
-              <th className="table-titles">Title</th>
-              <th className="table-titles">Category</th>
-              <th className="table-titles">Price</th>
-              <th className="table-titles">Image</th>
-              <th className="table-titles">Description</th>
-              <th className="table-titles">Edit</th>
-              <th className="table-titles">Delete</th>
-            </tr>
-          </thead>
+        <div>
+          <Link to="/admin/form">
+            <button>ADD ITEM</button>
+          </Link>
+          <br />
+          <br />
+          <h4 class="mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-4xl text-brightRedLight">
+            Menu Items
+          </h4>
+        </div>
 
-          <tbody>
-            {adminData?.map((menuItem) => {
-              const { id, title, category, descript, price, img } = menuItem;
-              return (
-                <tr
-                  key={id}
-                  onClick={() => handleClick(id)}
-                  style={{
-                    backgroundColor:
-                      menuItem.id === activeRow ? "#c2c1c6" : "#f7f7f7",
-                  }}
-                >
-                  <td>{id}</td>
-                  <td>{title}</td>
-                  <td>{category}</td>
-                  <td>{price}</td>
-                  <td>
-                    <img src={img} alt={title} style={{ width: "100px" }} />
-                  </td>
-                  <td>{descript}</td>
-                  <td>
-                    <Link to="/admin/form">
-                      <button onClick={() => editHandler(id)}>Edit</button>
-                    </Link>
-                  </td>
-                  <td>
-                    <button onClick={() => deleteHandler(id)}>Delete</button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div class="flex flex-col">
+          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+              <div class="overflow-hidden">
+                <table class="min-w-full text-left text-sm font-light">
+                  <thead class="font-medium  uppercase bg-gray-800 text-gray-300">
+                    <tr>
+                      <th scope="col" class="px-6 py-4">
+                        Id
+                      </th>
+                      <th scope="col" class="px-6 py-4">
+                        Title
+                      </th>
+                      <th scope="col" class="px-6 py-4">
+                        Category
+                      </th>
+                      <th scope="col" class="px-6 py-4">
+                        Price
+                      </th>
+                      <th scope="col" class="px-6 py-4">
+                        Image
+                      </th>
+                      <th scope="col" class="px-6 py-4">
+                        Description
+                      </th>
+                      <th scope="col" class="px-6 py-4">
+                        Edit
+                      </th>
+                      <th scope="col" class="px-6 py-4">
+                        Delete
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {adminData?.map((menuItem) => {
+                      const { id, title, category, descript, price, img } =
+                        menuItem;
+                      return (
+                        <tr
+                          class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600 cursor-pointer"
+                          key={id}
+                          onClick={() => handleClick(id)}
+                          style={{
+                            backgroundColor:
+                              menuItem.id === activeRow ? "#c2c1c6" : "#f7f7f7",
+                          }}
+                        >
+                          <td class="px-6 py-4 font-medium">{id}</td>
+                          <td class="px-6 py-4">{title}</td>
+                          <td class="px-6 py-4">{category}</td>
+                          <td class="px-6 py-4">{price}</td>
+                          <td class="px-6 py-4">
+                            <img
+                              src={img}
+                              alt={title}
+                              style={{ width: "100px" }}
+                            />
+                          </td>
+                          <td class=" px-6 py-4">{descript}</td>
+                          <td class="px-6 py-4 hover:text-brightRedLight">
+                            <Link to="/admin/form">
+                              <button onClick={() => editHandler(id)}>
+                                Edit
+                              </button>
+                            </Link>
+                          </td>
+                          <td class="px-6 py-4 hover:text-brightRedLight">
+                            <button onClick={() => deleteHandler(id)}>
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
