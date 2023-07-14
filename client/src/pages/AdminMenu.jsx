@@ -23,12 +23,15 @@ const AdminMenu = () => {
   };
 
   const deleteHandler = async (id) => {
-    const response = await fetch(`http://localhost:3005/admin/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `https://cafe-menu-8dyy.onrender.com/admin/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const result = await response.json();
 
     if (response.ok) {

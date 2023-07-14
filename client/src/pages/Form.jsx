@@ -16,7 +16,9 @@ function Form() {
 
   const fetchEditData = async () => {
     try {
-      const res = await fetch(`http://localhost:3005/admin/meals/${id}/edit`);
+      const res = await fetch(
+        `https://cafe-menu-8dyy.onrender.com/admin/meals/${id}/edit`
+      );
       if (!res.ok) {
         throw new Error("Failed to find menu item");
       }
@@ -39,19 +41,22 @@ function Form() {
   const editItem = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:3005/admin/meals/${id}/edit`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: title,
-          category: category,
-          price: price,
-          img: img,
-          descript: descript,
-        }),
-      });
+      const res = await fetch(
+        `https://cafe-menu-8dyy.onrender.com/admin/meals/${id}/edit`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: title,
+            category: category,
+            price: price,
+            img: img,
+            descript: descript,
+          }),
+        }
+      );
       if (!res.ok) {
         throw new Error("Failed to update menu item");
       }
@@ -72,12 +77,12 @@ function Form() {
 
   const addHandler = async (e) => {
     e.preventDefault();
-    if (!title && !category && !price && !img && !descript) {
-      alert("Please Fill all * fields!");
+    if (!title || !category || !price || !img || !descript) {
+      alert("Please Fill all the fields!");
       return;
     }
     try {
-      const res = await fetch("http://localhost:3005/admin/add", {
+      const res = await fetch("https://cafe-menu-8dyy.onrender.com/admin/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -189,7 +194,7 @@ function Form() {
             <button
               class="py-4 px-5 m-5 text-sm font-medium rounded-lg border bg-gray-800 text-gray-300  hover:text-white hover:bg-gray-700"
               type="button"
-              onClick={editItem}
+              onClick={fetchSuccess ? editItem : addHandler}
             >
               Submit
             </button>

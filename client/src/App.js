@@ -12,7 +12,7 @@ function App() {
   const [adminData, setAdminData] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3005/`)
+    fetch(`https://cafe-menu-8dyy.onrender.com`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Something went wrong.");
