@@ -10,6 +10,7 @@ function App() {
   const [data, setData] = useState([]);
   const [id, setId] = useState(0);
   const [adminData, setAdminData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch(`https://cafe-menu-8dyy.onrender.com`)
@@ -22,6 +23,7 @@ function App() {
       .then((data) => {
         setData(data);
         setAdminData(data);
+        setIsLoading(!isLoading);
       })
       .catch((error) => {
         console.log(error);
@@ -29,7 +31,7 @@ function App() {
   }, []);
 
   return (
-    <AppContext.Provider value={{ data, setData, id, setId, adminData, setAdminData }}>
+    <AppContext.Provider value={{ data, setData, id, setId, adminData, setAdminData, isLoading }}>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
