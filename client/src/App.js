@@ -12,7 +12,7 @@ function App() {
   const [adminData, setAdminData] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3005/`)
+    fetch(`http://ec2-18-130-253-218.eu-west-2.compute.amazonaws.com/`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Something went wrong.");
